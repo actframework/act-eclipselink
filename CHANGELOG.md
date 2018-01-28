@@ -1,4 +1,4 @@
-# act-hibernate CHANGE LOG
+# act-eclipselink CHANGE LOG
 
 1.0.0
 
