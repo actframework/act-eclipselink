@@ -1,5 +1,9 @@
 # act-eclipselink CHANGE LOG
 
+1.3.1 - 11/Mar/2018
+* update to act-1.8.1
+* update to act-jpa-common-1.2.1
+
 1.2.0 - 4/Mar/2018 - support timestamp auditing
 
 * update to act-1.8.0
