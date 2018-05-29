@@ -21,11 +21,15 @@ package act.db.eclipselink;
  */
 
 import static act.db.jpa.JPAPlugin.*;
+import static org.eclipse.persistence.config.PersistenceUnitProperties.*;
 
 import act.Act;
 import act.app.App;
 import act.db.jpa.JPAService;
+import act.db.sql.DataSourceConfig;
 import org.eclipse.persistence.config.PersistenceUnitProperties;
+import org.eclipse.persistence.platform.server.NoServerPlatform;
+import org.osgl.$;
 import org.osgl.util.C;
 
 import java.util.Map;
@@ -41,18 +45,38 @@ public class EclipseLinkService extends JPAService {
     }
 
     @Override
-    protected Properties processProperties(Properties properties) {
-        if (!properties.contains((PersistenceUnitProperties.BATCH_WRITING))) {
-            properties.put((PersistenceUnitProperties.BATCH_WRITING), "JDBC");
+    protected Properties processProperties(Properties properties, DataSourceConfig dataSourceConfig, boolean useExternalDataSource) {
+        if (!properties.contains(BATCH_WRITING)) {
+            properties.put((BATCH_WRITING), "JDBC");
         }
+        properties.put(TARGET_SERVER, NoServerPlatform.class.getName());
         String s = properties.getProperty(CONF_DDL);
         if (null == s) {
             s = Act.isDev() ? CONF_DDL_UPDATE : CONF_DDL_NONE;
         }
-        properties.setProperty("eclipselink.ddl-generation", EclipseLinkPlugin.translateDDL(s));
-        //properties.setProperty(COMPOSITE_UNIT, "true");
-        //properties.setProperty(WEAVING, "false");
-        return super.processProperties(properties);
+        properties.setProperty(DDL_GENERATION, EclipseLinkPlugin.translateDDL(s));
+
+        s = properties.getProperty(CONF_CACHE_ENABLED);
+        s = String.valueOf($.bool(s));
+        properties.setProperty(CACHE_SHARED_DEFAULT, s);
+
+        // in case it needs Eclipselink built-in connection pool
+        if (!useExternalDataSource) {
+            // well Eclipselink will call external datasource to getConnection with username or password,
+            // which will result in java.sql.SQLFeatureNotSupportedException
+            properties.setProperty(JDBC_URL, dataSourceConfig.url);
+            properties.setProperty(PersistenceUnitProperties.JDBC_USER, dataSourceConfig.username);
+            properties.setProperty(PersistenceUnitProperties.JDBC_PASSWORD, dataSourceConfig.password);
+            properties.setProperty("eclipselink.jdbc.connection_pool.default.max", String.valueOf(dataSourceConfig.maxConnections));
+            properties.setProperty("eclipselink.jdbc.connection_pool.default.min", String.valueOf(dataSourceConfig.minConnections));
+        } else {
+            // make suer username is not set while external datasource is used.
+            properties.remove(PersistenceUnitProperties.JDBC_USER);
+        }
+
+        // TODO interesting we couldn't find out how to set autoCommit and readonly for eclipselink internal connection pool
+
+        return super.processProperties(properties, dataSourceConfig, useExternalDataSource);
     }
 
     @Override
