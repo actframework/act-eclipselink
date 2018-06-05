@@ -28,10 +28,12 @@ import act.app.App;
 import act.db.jpa.JPAService;
 import act.db.sql.DataSourceConfig;
 import org.eclipse.persistence.config.PersistenceUnitProperties;
+import org.eclipse.persistence.internal.jpa.EntityManagerFactoryImpl;
 import org.eclipse.persistence.platform.server.NoServerPlatform;
 import org.osgl.$;
 import org.osgl.util.C;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 import javax.persistence.EntityManagerFactory;
@@ -87,6 +89,14 @@ public class EclipseLinkService extends JPAService {
     @Override
     protected EntityManagerFactory createEntityManagerFactory(PersistenceUnitInfo persistenceUnitInfo) {
         org.eclipse.persistence.jpa.PersistenceProvider p = new org.eclipse.persistence.jpa.PersistenceProvider();
-        return p.createContainerEntityManagerFactory(persistenceUnitInfo, C.Map());
+        EntityManagerFactoryImpl factory = (EntityManagerFactoryImpl)p.createContainerEntityManagerFactory(persistenceUnitInfo, C.Map());
+        ClassLoader sessionLoader = factory.getServerSession().getLoader();
+        if (app().classLoader() != sessionLoader) {
+            HashMap properties = new HashMap<>();
+            properties.put(PersistenceUnitProperties.CLASSLOADER, app().classLoader());
+            properties.putAll(persistenceUnitInfo.getProperties());
+            factory.refreshMetadata(properties);
+        }
+        return factory;
     }
 }

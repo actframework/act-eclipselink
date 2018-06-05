@@ -1,5 +1,9 @@
 # act-eclipselink CHANGE LOG
 
+**1.5.0**
+* It shall refresh EntityManagerFactory's internal state after app hot reload #1
+* update to act-jpa-common 1.5.0
+
 **1.4.0** 29/May/28
 * update act to 1.8.8-RC8
 * update act-jpa-common to 1.4.0
