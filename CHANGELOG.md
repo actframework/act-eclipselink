@@ -2,6 +2,7 @@
 
 **1.5.0**
 * It shall refresh EntityManagerFactory's internal state after app hot reload #1
+* update to act-1.8.8-RC9
 * update to act-jpa-common 1.5.0
 
 **1.4.0** 29/May/28
