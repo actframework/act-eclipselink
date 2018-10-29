@@ -1,5 +1,9 @@
 # act-eclipselink CHANGE LOG
 
+**1.5.2**
+* Act-Eclipselink could not support weaving #8
+    - switch eclipselink dependency from `eclipselink` to `org.eclipse.persistence.jpa`
+
 **1.5.1** 19/Jun/2018
 * update to act-1.8.8-RC10
 * update act-jpa-common to 1.5.1
