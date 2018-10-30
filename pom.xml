@@ -20,7 +20,7 @@
 
   <artifactId>act-eclipselink</artifactId>
   <packaging>jar</packaging>
-  <version>1.5.2</version>
+  <version>1.5.2-SNAPSHOT</version>
 
   <name>ACT EclipseLink</name>
   <description>Provides SQL database access through EclipseLink library</description>
@@ -62,23 +62,6 @@
       <groupId>org.eclipse.persistence</groupId>
       <artifactId>org.eclipse.persistence.jpa</artifactId>
       <version>${eclipselink.version}</version>
-      <exclusions>
-        <exclusion>
-          <groupId>org.eclipse.persistence</groupId>
-          <artifactId>javax.persistence</artifactId>
-        </exclusion>
-      </exclusions>
-    </dependency>
-    <dependency>
-      <groupId>org.eclipse.persistence</groupId>
-      <artifactId>org.eclipse.persistence.extension</artifactId>
-      <version>${eclipselink.version}</version>
-      <exclusions>
-        <exclusion>
-          <groupId>org.eclipse.persistence</groupId>
-          <artifactId>org.eclipse.persistence.core</artifactId>
-        </exclusion>
-      </exclusions>
     </dependency>
   </dependencies>
 
