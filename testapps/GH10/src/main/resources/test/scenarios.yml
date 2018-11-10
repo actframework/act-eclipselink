@@ -1,0 +1,20 @@
+Scenario(10):
+  description: "[GH10] Not support eclipselink session customizer"
+  interactions:
+    - description: Create an order
+      request:
+        post: /orders
+        params:
+          name: foo
+      response:
+        json:
+          id:
+            - exists: true
+      cache:
+        newOrderId: id
+    - description: verify order creation
+      request:
+        get: /orders/${newOrderId}
+      response:
+        json:
+          name: foo
