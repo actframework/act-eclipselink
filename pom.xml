@@ -63,6 +63,17 @@
       <artifactId>org.eclipse.persistence.jpa</artifactId>
       <version>${eclipselink.version}</version>
     </dependency>
+    <dependency>
+      <groupId>org.eclipse.persistence</groupId>
+      <artifactId>org.eclipse.persistence.extension</artifactId>
+      <version>${eclipselink.version}</version>
+      <exclusions>
+        <exclusion>
+          <groupId>org.eclipse.persistence</groupId>
+          <artifactId>org.eclipse.persistence.core</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
   </dependencies>
 
 </project>
