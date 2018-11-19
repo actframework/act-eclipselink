@@ -1,6 +1,7 @@
 # act-eclipselink CHANGE LOG
 
-**1.5.4**
+**1.5.4** 20/Nov/2018
+* update act to 1.8.12
 * Restore dropped code change #11
 
 **1.5.3** 04/Nov/2018
