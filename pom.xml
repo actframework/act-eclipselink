@@ -20,7 +20,7 @@
 
   <artifactId>act-eclipselink</artifactId>
   <packaging>jar</packaging>
-  <version>1.5.6</version>
+  <version>1.5.7-SNAPSHOT</version>
 
   <name>ACT EclipseLink</name>
   <description>Provides SQL database access through EclipseLink library</description>
