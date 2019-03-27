@@ -23,6 +23,9 @@ package act.db.eclipselink;
 import act.app.App;
 import act.db.DbService;
 import act.db.jpa.JPAPlugin;
+import org.eclipse.persistence.internal.jpa.EntityManagerFactoryProvider;
+import org.eclipse.persistence.internal.jpa.EntityManagerSetupImpl;
+import org.osgl.util.C;
 import osgl.version.Version;
 import osgl.version.Versioned;
 
@@ -35,6 +38,7 @@ public class EclipseLinkPlugin extends JPAPlugin {
 
     @Override
     public DbService initDbService(String id, App app, Map<String, String> conf) {
+        resetEclipseLink();
         return new EclipseLinkService(id, app, conf);
     }
 
@@ -48,6 +52,18 @@ public class EclipseLinkPlugin extends JPAPlugin {
         } else {
             return "none";
         }
+    }
+
+    private void resetEclipseLink() {
+        Map<String, EntityManagerSetupImpl> map =  EntityManagerFactoryProvider.getEmSetupImpls();
+        for (EntityManagerSetupImpl setup : C.list(map.values())) {
+            try {
+                setup.undeploy();
+            } catch (Exception e) {
+                // ignore
+            }
+        }
+        map.clear();
     }
 
 }
