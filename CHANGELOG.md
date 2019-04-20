@@ -1,6 +1,7 @@
 # act-eclipselink CHANGE LOG
 
-**1.5.8**
+**1.5.8** 20/Apr/2019
+* update act to 1.8.20
 * EntityManagerFactoryProvider.emSetupImpls needs to be reset upon hotreload #12
 
 **1.5.7** 04/Feb/2019
