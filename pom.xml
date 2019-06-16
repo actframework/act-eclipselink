@@ -35,14 +35,14 @@
   <parent>
     <groupId>org.actframework</groupId>
     <artifactId>parent</artifactId>
-    <version>1.8.20</version>
+    <version>1.8.23</version>
   </parent>
 
   <properties>
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
     <scm.url>git@github.com:actframework/act-eclipselink.git</scm.url>
-    <act-jpa-common.version>1.5.7</act-jpa-common.version>
+    <act-jpa-common.version>1.5.8</act-jpa-common.version>
     <eclipselink.version>2.7.4</eclipselink.version>
   </properties>
 
