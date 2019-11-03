@@ -1,5 +1,9 @@
 # act-eclipselink CHANGE LOG
 
+**1.7.0** 
+* update to act-1.8.29
+* update to jpa-common-1.7.0
+
 **1.6.1** 30/Sep/2019
 * update act to 1.8.28
 * update jpa-common to 1.6.1
